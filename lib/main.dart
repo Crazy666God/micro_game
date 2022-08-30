@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:micro_game/game.dart';
-import 'package:micro_game/main_loop.dart';
+import 'package:micro_game/my_app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +17,11 @@ void main() {
       runApp(
         const MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: Game(),
+          home: SafeArea(
+            child: Scaffold(
+              body: MyApp(),
+            ),
+          ),
         ),
       );
     },
