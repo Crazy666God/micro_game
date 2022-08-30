@@ -6,10 +6,10 @@ abstract class Entity {
   bool visible = true;
   List sprites = [];
 
-  Entity(this.x, this.y, this.spriteName) {
-    for (int i = 1; i < 4; ++i) {
-      sprites.add(Image.asset('assets/$spriteName$i.png'));
-    }
+  Entity({required this.x, required this.y, required this.spriteName}) {
+    sprites.add(
+      Image.asset('assets/$spriteName.png'),
+    );
   }
 
   void update();

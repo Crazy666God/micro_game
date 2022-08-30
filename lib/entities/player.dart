@@ -1,28 +1,53 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:micro_game/entities/entity.dart';
+import 'package:micro_game/utilits/global_vars.dart';
 
 class Player extends Entity {
-  // Player(super.x, super.y, super.spriteName) {}
-  Player() : super(50, 100, 'Icon');
-  
-  int icons = 0;
-  
+  double _angle = 0;
+  double _degree = 0;
+  bool isMoveLeft = false;
+  bool isMoveRight = false;
+  double _speed = 3;
+  bool isAcceleration = false;
+
+  Player() : super(x: 50, y: 100, spriteName: 'player');
+
+  get getAbgle => _angle;
+
   @override
   Widget build() {
     return Positioned(
       top: y,
       left: x,
-      child: visible ? sprites[icons] : SizedBox(),
+      child: visible
+          ? Transform.rotate(
+              angle: _angle,
+              child: sprites.first,
+            )
+          : SizedBox(),
     );
   }
 
   @override
   void move() {
-    if (++x > 400) {
-      if(++icons >= 2) icons = 0;
-      x = 50;
-    }
+    if (!isAcceleration) return;
+    if (isMoveLeft) _degree -= 5;
+    if (isMoveRight) _degree += 5;
+
+    _angle = _degree * 3.14 / 180;
+
+    x += sin(_degree * 0.0175) * _speed;
+    y -= cos(_degree * 0.0175) * _speed;
+
+    if (x < 0) x = 0;
+    if (y < 0) y = 0;
+    if (x > GlobalVars.screenWidth - 100) x = GlobalVars.screenWidth - 100;
+    if (y > GlobalVars.screenHeiht - 100) y = GlobalVars.screenHeiht - 100;
+
+    isMoveLeft = false;
+    isMoveRight = false;
   }
 
   @override
