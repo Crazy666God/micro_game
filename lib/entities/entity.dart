@@ -7,7 +7,7 @@ abstract class Entity {
   List sprites = [];
 
   Entity(this.x, this.y, this.spriteName) {
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 1; i < 4; ++i) {
       sprites.add(Image.asset('assets/$spriteName$i.png'));
     }
   }
