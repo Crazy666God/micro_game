@@ -5,10 +5,10 @@ import 'package:micro_game/scenes/app_scene.dart';
 import 'package:micro_game/utilits/global_vars.dart';
 
 class GameScene extends AppScene {
-  Player _player = Player();
+  final Player _player = Player(spriteName: 'player', numberSprites: 1);
   double _startGlobalPosition = 0;
-  List<Bullet> _listBullets = [];
-  List<Widget> _listWidgets = [];
+  final List<Bullet> _listBullets = [];
+  final List<Widget> _listWidgets = [];
 
   @override
   Widget buildScene() {
@@ -18,7 +18,7 @@ class GameScene extends AppScene {
         Positioned(
           top: 0,
           left: 0,
-          child: Container(
+          child: SizedBox(
             width: GlobalVars.screenWidth / 2,
             height: GlobalVars.screenHeiht,
             child: GestureDetector(
@@ -30,7 +30,7 @@ class GameScene extends AppScene {
         Positioned(
           top: 0,
           left: GlobalVars.screenWidth / 2,
-          child: Container(
+          child: SizedBox(
             width: GlobalVars.screenWidth / 2,
             height: GlobalVars.screenHeiht / 2,
             child: GestureDetector(
@@ -41,7 +41,7 @@ class GameScene extends AppScene {
         Positioned(
           top: GlobalVars.screenHeiht / 2,
           left: GlobalVars.screenWidth / 2,
-          child: Container(
+          child: SizedBox(
             width: GlobalVars.screenWidth / 2,
             height: GlobalVars.screenHeiht / 2,
             child: GestureDetector(
@@ -49,7 +49,9 @@ class GameScene extends AppScene {
             ),
           ),
         ),
-        Stack(children: _listWidgets,)
+        Stack(
+          children: _listWidgets,
+        )
       ],
     );
   }
@@ -57,9 +59,9 @@ class GameScene extends AppScene {
   @override
   void update() {
     _player.update();
-    _listWidgets.clear(); // or _listWidgets = [];
+    _listWidgets.clear();
     _listBullets.removeWhere((element) => !element.visible);
-    _listBullets.forEach((element) { 
+    _listBullets.forEach((element) {
       _listWidgets.add(element.build());
       element.update();
     });
@@ -86,6 +88,13 @@ class GameScene extends AppScene {
   }
 
   void _onShoot() {
-    _listBullets.add(Bullet(playerAngle: _player.getAbgle, x: _player.x, y: _player.y));
+    _listBullets.add(
+      Bullet(
+          playerAngle: _player.getAbgle,
+          x: _player.x,
+          y: _player.y,
+          spriteName: 'bullet',
+          numberSprites: 1),
+    );
   }
 }
