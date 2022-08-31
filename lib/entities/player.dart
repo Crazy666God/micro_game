@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:micro_game/entities/entity.dart';
 import 'package:micro_game/utilits/global_vars.dart';
@@ -9,10 +8,11 @@ class Player extends Entity {
   double _degree = 0;
   bool isMoveLeft = false;
   bool isMoveRight = false;
-  double _speed = 3;
+  final double _speed = 3;
   bool isAcceleration = false;
 
-  Player() : super(x: 50, y: 100, spriteName: 'player');
+  Player({required super.spriteName, required super.numberSprites})
+      : super(x: 100, y: 100);
 
   get getAbgle => _angle;
 
@@ -24,9 +24,9 @@ class Player extends Entity {
       child: visible
           ? Transform.rotate(
               angle: _angle,
-              child: sprites.first,
+              child: sprites[currentSprite],
             )
-          : SizedBox(),
+          : const SizedBox(),
     );
   }
 
@@ -48,10 +48,5 @@ class Player extends Entity {
 
     isMoveLeft = false;
     isMoveRight = false;
-  }
-
-  @override
-  void update() {
-    move();
   }
 }

@@ -2,17 +2,38 @@ import 'package:flutter/material.dart';
 
 abstract class Entity {
   double x, y;
-  String spriteName;
+  final String spriteName;
   bool visible = true;
   List sprites = [];
+  int currentTick = 0;
+  int currentSprite = 0;
+  final int numberSprites;
 
-  Entity({required this.x, required this.y, required this.spriteName}) {
-    sprites.add(
-      Image.asset('assets/$spriteName.png'),
-    );
+  Entity(
+      {required this.x,
+      required this.y,
+      required this.spriteName,
+      required this.numberSprites}) {
+    for (int i = 0; i < numberSprites; ++i) {
+      sprites.add(
+        Image.asset('assets/$spriteName$i.png'),
+      );
+    }
   }
 
-  void update();
+  void update() {
+    _animation();
+    move();
+  }
+
   void move();
+
+  void _animation() {
+    if (++currentTick < 15) {
+      currentSprite < numberSprites - 1 ? ++currentSprite : currentSprite = 0; 
+      currentTick = 0;
+    }
+  }
+
   Widget build();
 }
