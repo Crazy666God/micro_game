@@ -5,7 +5,7 @@ import 'package:micro_game/scenes/app_scene.dart';
 import 'package:micro_game/utilits/global_vars.dart';
 
 class GameScene extends AppScene {
-  final Player _player = Player(spriteName: 'player', numberSprites: 1);
+  final Player _player = Player(spriteName: 'ship_green', numberSprites: 1);
   double _startGlobalPosition = 0;
   final List<Bullet> _listBullets = [];
   final List<Widget> _listWidgets = [];
