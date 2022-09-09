@@ -14,13 +14,15 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void didChangeDependencies() {
-    initGame(context);
+    initSizeScreen(context);
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: double.infinity,
+      height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
               image: AssetImage('assets/background.png'), fit: BoxFit.cover),
@@ -28,7 +30,7 @@ class _MyAppState extends State<MyApp> {
         child: const Game());
   }
   
-  void initGame(BuildContext context) {
+  void initSizeScreen(BuildContext context) {
     GlobalVars.screenWidth = MediaQuery.of(context).size.width;
     GlobalVars.screenHeiht = MediaQuery.of(context).size.height;
   }

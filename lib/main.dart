@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:micro_game/menu_page.dart';
 import 'package:micro_game/my_app.dart';
 
 void main() {
@@ -10,18 +11,17 @@ void main() {
       .whenComplete(
     () {
       SystemChrome.setEnabledSystemUIMode(
-        SystemUiMode.manual,
+        SystemUiMode.immersiveSticky,
         overlays: [SystemUiOverlay.bottom],
       );
-
       runApp(
-        const MaterialApp(
+        MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: SafeArea(
-            child: Scaffold(
-              body: MyApp(),
-            ),
-          ),
+          routes: {
+            '/': (BuildContext context) => const MenuPage(),
+            '/game' : (BuildContext context) => const MyApp(),
+          },
+          initialRoute: '/',
         ),
       );
     },
