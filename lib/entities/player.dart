@@ -11,22 +11,33 @@ class Player extends Entity {
   final double _speed = 3;
   bool isAcceleration = false;
 
-  Player({required super.spriteName, required super.numberSprites})
-      : super(x: 100, y: 100);
+  Player(
+      {required super.spriteName,
+      required super.numberSprites,
+      super.spriteSize = const Size(98 / 2, 75 / 2)})
+      : super(x: GlobalVars.screenWidth / 2, y: GlobalVars.screenHeiht / 2);
 
-  get getAbgle => _angle;
+  get getAngle => _angle;
 
   @override
   Widget build() {
     return Positioned(
       top: y,
       left: x,
-      child: visible
-          ? Transform.rotate(
-              angle: _angle,
-              child: sprites[currentSprite],
-            )
-          : const SizedBox(),
+      child: FractionalTranslation(
+        translation: const Offset(-0.5, -0.5),
+        child: SizedBox(
+          width: spriteSize.width,
+          height: spriteSize.height,
+          child: visible
+              ? Transform.rotate(
+                  alignment: Alignment.center,
+                  angle: _angle,
+                  child: sprites[currentSprite],
+                )
+              : const SizedBox(),
+        ),
+      ),
     );
   }
 
@@ -36,15 +47,23 @@ class Player extends Entity {
     if (isMoveLeft) _degree -= 5;
     if (isMoveRight) _degree += 5;
 
-    _angle = _degree * 3.14 / 180;
+    _angle = _degree * 0.0175; // 3.14 / 180 = 0.0175;
 
-    x += sin(_degree * 0.0175) * _speed;
-    y -= cos(_degree * 0.0175) * _speed;
+    x += sin(_angle) * _speed;
+    y -= cos(_angle) * _speed;
 
-    if (x < 0) x = 0;
-    if (y < 0) y = 0;
-    if (x > GlobalVars.screenWidth - 100) x = GlobalVars.screenWidth - 100;
-    if (y > GlobalVars.screenHeiht - 100) y = GlobalVars.screenHeiht - 100;
+    if (x < spriteSize.width / 2) {
+      x = spriteSize.width / 2;
+    }
+    if (y < spriteSize.height / 2) {
+      y = spriteSize.height / 2;
+    }
+    if (x > GlobalVars.screenWidth - spriteSize.width / 2) {
+      x = GlobalVars.screenWidth - spriteSize.width / 2;
+    }
+    if (y > GlobalVars.screenHeiht - spriteSize.height / 2) {
+      y = GlobalVars.screenHeiht - spriteSize.height / 2;
+    }
 
     isMoveLeft = false;
     isMoveRight = false;

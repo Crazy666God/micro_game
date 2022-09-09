@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 abstract class Entity {
+  final Size spriteSize;
   double x, y;
   final String spriteName;
   bool visible = true;
-  List sprites = [];
+  List<Image> sprites = [];
   int currentTick = 0;
   int currentSprite = 0;
   final int numberSprites;
@@ -13,7 +14,8 @@ abstract class Entity {
       {required this.x,
       required this.y,
       required this.spriteName,
-      required this.numberSprites}) {
+      required this.numberSprites,
+      required this.spriteSize}) {
     for (int i = 0; i < numberSprites; ++i) {
       sprites.add(
         Image.asset('assets/$spriteName$i.png'),
@@ -30,7 +32,7 @@ abstract class Entity {
 
   void _animation() {
     if (++currentTick < 15) {
-      currentSprite < numberSprites - 1 ? ++currentSprite : currentSprite = 0; 
+      currentSprite < numberSprites - 1 ? ++currentSprite : currentSprite = 0;
       currentTick = 0;
     }
   }

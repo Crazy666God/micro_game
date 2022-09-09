@@ -14,6 +14,9 @@ class GameScene extends AppScene {
   Widget buildScene() {
     return Stack(
       children: [
+        Stack(
+          children: _listWidgets,
+        ),
         _player.build(),
         Positioned(
           top: 0,
@@ -49,9 +52,6 @@ class GameScene extends AppScene {
             ),
           ),
         ),
-        Stack(
-          children: _listWidgets,
-        )
       ],
     );
   }
@@ -61,10 +61,10 @@ class GameScene extends AppScene {
     _player.update();
     _listWidgets.clear();
     _listBullets.removeWhere((element) => !element.visible);
-    _listBullets.forEach((element) {
+    for (var element in _listBullets) {
       _listWidgets.add(element.build());
       element.update();
-    });
+    }
   }
 
   void _onPanStart(DragStartDetails details) {
@@ -90,7 +90,7 @@ class GameScene extends AppScene {
   void _onShoot() {
     _listBullets.add(
       Bullet(
-          playerAngle: _player.getAbgle,
+          playerAngle: _player.getAngle,
           x: _player.x,
           y: _player.y,
           spriteName: 'bullet',
