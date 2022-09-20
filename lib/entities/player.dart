@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:micro_game/entities/entity.dart';
+import 'package:micro_game/point.dart';
 import 'package:micro_game/utilits/global_vars.dart';
 
 class Player extends Entity {
@@ -13,17 +14,17 @@ class Player extends Entity {
 
   Player(
       {required super.spriteName,
-      required super.numberSprites,
-      super.spriteSize = const Size(98 / 2, 75 / 2)})
-      : super(x: GlobalVars.screenWidth / 2, y: GlobalVars.screenHeiht / 2);
+      required super.spriteNumber,
+      })
+      : super(coordinates: Point(GlobalVars.screenWidth / 2, GlobalVars.screenHeiht / 2), spriteSize: const Size(98 / 2, 75 / 2));
 
   get getAngle => _angle;
 
   @override
   Widget build() {
     return Positioned(
-      top: y,
-      left: x,
+      top: coordinates.x,
+      left: coordinates.x,
       child: FractionalTranslation(
         translation: const Offset(-0.5, -0.5),
         child: SizedBox(
@@ -33,7 +34,7 @@ class Player extends Entity {
               ? Transform.rotate(
                   alignment: Alignment.center,
                   angle: _angle,
-                  child: sprites[currentSprite],
+                  child: sprite,
                 )
               : const SizedBox(),
         ),
@@ -49,20 +50,20 @@ class Player extends Entity {
 
     _angle = _degree * 0.0175; // 3.14 / 180 = 0.0175;
 
-    x += sin(_angle) * _speed;
-    y -= cos(_angle) * _speed;
+    coordinates.x += sin(_angle) * _speed;
+    coordinates.y -= cos(_angle) * _speed;
 
-    if (x < spriteSize.width / 2) {
-      x = spriteSize.width / 2;
+    if (coordinates.x < spriteSize.width / 2) {
+      coordinates.x = spriteSize.width / 2;
     }
-    if (y < spriteSize.height / 2) {
-      y = spriteSize.height / 2;
+    if (coordinates.y < spriteSize.height / 2) {
+      coordinates.y = spriteSize.height / 2;
     }
-    if (x > GlobalVars.screenWidth - spriteSize.width / 2) {
-      x = GlobalVars.screenWidth - spriteSize.width / 2;
+    if (coordinates.x > GlobalVars.screenWidth - spriteSize.width / 2) {
+      coordinates.x = GlobalVars.screenWidth - spriteSize.width / 2;
     }
-    if (y > GlobalVars.screenHeiht - spriteSize.height / 2) {
-      y = GlobalVars.screenHeiht - spriteSize.height / 2;
+    if (coordinates.y > GlobalVars.screenHeiht - spriteSize.height / 2) {
+      coordinates.y = GlobalVars.screenHeiht - spriteSize.height / 2;
     }
 
     isMoveLeft = false;

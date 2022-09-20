@@ -9,18 +9,17 @@ class Bullet extends Entity {
 
   Bullet({
     required this.playerAngle,
-    required super.x,
-    required super.y,
+    required super.coordinates,
     required super.spriteName,
-    required super.numberSprites,
+    required super.spriteNumber,
     super.spriteSize = const Size(13, 57),
   });
 
   @override
   Widget build() {
     return Positioned(
-      top: y,
-      left: x,
+      top: coordinates.y,
+      left: coordinates.x,
       child: FractionalTranslation(
         translation: const Offset(-0.5, -0.5),
         child: SizedBox(
@@ -28,7 +27,7 @@ class Bullet extends Entity {
           height: spriteSize.height / 2,
           child: Transform.rotate(
             angle: playerAngle,
-            child: sprites[currentSprite],
+            child: sprite,
           ),
         ),
       ),
@@ -37,12 +36,12 @@ class Bullet extends Entity {
 
   @override
   void move() {
-    x += sin(playerAngle) * _speed;
-    y -= cos(playerAngle) * _speed;
-    if (x > GlobalVars.screenWidth ||
-        y > GlobalVars.screenHeiht ||
-        x < 0 ||
-        y < -spriteSize.height) {
+    coordinates.x += sin(playerAngle) * _speed;
+    coordinates.y -= cos(playerAngle) * _speed;
+    if (coordinates.x > GlobalVars.screenWidth ||
+        coordinates.y > GlobalVars.screenHeiht ||
+        coordinates.x < 0 ||
+        coordinates.y < -spriteSize.height) {
       visible = false;
     }
   }

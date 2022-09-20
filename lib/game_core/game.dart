@@ -31,12 +31,12 @@ class _GameState extends State<Game> {
     _isolateLoop = await Isolate.spawn(mainLoop, _receivePort.sendPort);
     _receivePort.listen((message) {
       GlobalVars.currentScene.update();
-      setState(() {});
+      setState(() {}); 
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return GlobalVars.currentScene.buildScene();
+      return GlobalVars.currentScene.buildScene();
   }
 }
