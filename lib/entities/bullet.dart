@@ -16,6 +16,11 @@ class Bullet extends Entity {
   });
 
   @override
+  Image setSprite() {
+    return Image.asset('assets/bullets/${spriteName}_$spriteNumber.png');
+  }
+
+  @override
   Widget build() {
     return Positioned(
       top: coordinates.y,

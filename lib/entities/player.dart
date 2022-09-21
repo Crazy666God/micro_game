@@ -21,9 +21,14 @@ class Player extends Entity {
   get getAngle => _angle;
 
   @override
+  Image setSprite() {
+    return Image.asset('assets/ships/${spriteName}_$spriteNumber.png');
+  }
+
+  @override
   Widget build() {
     return Positioned(
-      top: coordinates.x,
+      top: coordinates.y,
       left: coordinates.x,
       child: FractionalTranslation(
         translation: const Offset(-0.5, -0.5),

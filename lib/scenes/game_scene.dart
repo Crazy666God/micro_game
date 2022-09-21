@@ -10,8 +10,8 @@ import 'package:micro_game/utilits/global_vars.dart';
 
 class GameScene extends AppScene {
   final Random random = Random();
-  final Player _player =
-      Player(spriteName: GlobalVars.playerSkin, spriteNumber: GlobalVars.shipNumber);
+  final Player _player = Player(
+      spriteName: GlobalVars.playerSkin, spriteNumber: GlobalVars.shipNumber);
   double _startGlobalPosition = 0;
   final List<Bullet> _listBullets = [];
   final List<Meteor> _listMeteors = [];
@@ -74,7 +74,7 @@ class GameScene extends AppScene {
 
   @override
   void update() {
-    if (++_meteorsTic >= 20) {
+    if (++_meteorsTic >= 40) {
       List<dynamic> list = _randomTrajectory();
       _meteorsTic = 0;
       double spriteSize = random.nextBool() ? 50 : 25;
@@ -82,7 +82,7 @@ class GameScene extends AppScene {
         Meteor(
           angle: list[1],
           coordinates: list[0],
-          spriteName: 'Meteor_big',
+          spriteName: 'meteor',
           spriteNumber: random.nextInt(3),
           spriteSize: Size(spriteSize, spriteSize),
         ),
@@ -150,12 +150,14 @@ class GameScene extends AppScene {
   }
 
   void _onShoot() {
+    Point coordinates = _player.getCoordinates();
     _listBullets.add(
       Bullet(
-          playerAngle: _player.getAngle,
-          coordinates: _player.coordinates,
-          spriteName: GlobalVars.bulletSkin,
-          spriteNumber: 0),
+        playerAngle: _player.getAngle,
+        coordinates: coordinates,
+        spriteName: GlobalVars.bulletSkin,
+        spriteNumber: 0,
+      ),
     );
   }
 

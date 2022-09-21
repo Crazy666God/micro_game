@@ -9,14 +9,19 @@ abstract class Entity {
   late Image sprite;
   final int spriteNumber;
 
-  Entity({
-    required this.coordinates,
+  Entity({required this.coordinates,
     required this.spriteName,
     required this.spriteNumber,
     required this.spriteSize,
   }) {
-    sprite = Image.asset('assets/${spriteName}_$spriteNumber.png');
+    sprite = setSprite();
   }
+
+  Point getCoordinates() {
+    return Point(coordinates.x, coordinates.y);
+  }
+
+  Image setSprite(); 
 
   void update() {
     move();

@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
       height: double.infinity,
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/background.png'), fit: BoxFit.cover),
+              image: AssetImage('assets/backgrounds/background_0.png'), fit: BoxFit.cover),
         ),
         child: const Game());
   }

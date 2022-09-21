@@ -17,6 +17,11 @@ class Meteor extends Entity {
   });
 
   @override
+  Image setSprite() {
+    return Image.asset('assets/meteors/${spriteName}_$spriteNumber.png');
+  }
+
+  @override
   Widget build() {
     return Positioned(
       top: coordinates.y,
