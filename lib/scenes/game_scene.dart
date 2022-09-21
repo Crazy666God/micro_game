@@ -7,8 +7,10 @@ import 'package:micro_game/entities/player.dart';
 import 'package:micro_game/scenes/app_scene.dart';
 import 'package:micro_game/score_counter.dart';
 import 'package:micro_game/utilits/global_vars.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class GameScene extends AppScene {
+  final audioPlayer = AudioPlayer();
   final Random random = Random();
   final Player _player = Player(
       spriteName: GlobalVars.playerSkin, spriteNumber: GlobalVars.shipNumber);
@@ -149,7 +151,10 @@ class GameScene extends AppScene {
     _player.isAcceleration = !_player.isAcceleration;
   }
 
-  void _onShoot() {
+  void _onShoot() async {
+    await audioPlayer.stop();
+    await audioPlayer.play(AssetSource('music/laser.mp3'));
+    
     Point coordinates = _player.getCoordinates();
     _listBullets.add(
       Bullet(
@@ -159,6 +164,7 @@ class GameScene extends AppScene {
         spriteNumber: 0,
       ),
     );
+    
   }
 
   List<dynamic> _randomTrajectory() {
